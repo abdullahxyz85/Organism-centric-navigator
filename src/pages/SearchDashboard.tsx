@@ -9,10 +9,15 @@ import {
   Microscope,
   Users,
   ExternalLink,
+  AlertCircle,
+  CheckCircle,
+  Loader2,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { mockAPI, mockConditions } from "../lib/mockData";
-import { Organism, Paper } from "../lib/types";
+import { Organism, Paper, SearchResult } from "../lib/types";
+import { apiService } from "../lib/api";
+import { SearchResult as SearchResultComponent } from "../components/SearchResult";
 
 interface SearchDashboardProps {
   searchQuery?: string;
@@ -20,22 +25,44 @@ interface SearchDashboardProps {
 
 export function SearchDashboard({ searchQuery = "" }: SearchDashboardProps) {
   const [query, setQuery] = useState(searchQuery);
-  const [activeTab, setActiveTab] = useState<"organisms" | "papers">(
-    "organisms"
+  const [activeTab, setActiveTab] = useState<"ai-search" | "organisms" | "papers">(
+    "ai-search"
   );
   const [showFilters, setShowFilters] = useState(false);
   const [selectedConditions, setSelectedConditions] = useState<string[]>([]);
   const [organisms, setOrganisms] = useState<Organism[]>([]);
   const [papers, setPapers] = useState<Paper[]>([]);
+  const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [apiStatus, setApiStatus] = useState<{
+    connected: boolean;
+    message: string;
+  } | null>(null);
 
-  // Load data on component mount and when search query changes
+  // Check API status on component mount
   useEffect(() => {
-    loadData();
-  }, [query]);
+    checkAPIStatus();
+  }, []);
+
+  const checkAPIStatus = async () => {
+    try {
+      const health = await apiService.getHealth();
+      setApiStatus({
+        connected: health.api === "healthy" && health.openai === "healthy",
+        message: "AI Search Ready"
+      });
+    } catch (error) {
+      setApiStatus({
+        connected: false,
+        message: "Failed to connect to API"
+      });
+    }
+  };
 
   const loadData = async () => {
     setLoading(true);
+    setError(null);
     try {
       // Load organisms
       const { data: organismsData } = await mockAPI.getOrganisms(
@@ -45,8 +72,6 @@ export function SearchDashboard({ searchQuery = "" }: SearchDashboardProps) {
 
       // For papers, we'll use the mock papers data filtered by search query
       if (query) {
-        // In a real app, this would be an API call
-        // For now, we'll filter the papers based on search query
         const filtered =
           mockAPI.mockPapers?.filter(
             (paper) =>
@@ -68,9 +93,39 @@ export function SearchDashboard({ searchQuery = "" }: SearchDashboardProps) {
     }
   };
 
+  const performAISearch = async () => {
+    if (!query.trim()) {
+      setError("Please enter a search query");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setSearchResult(null);
+
+    try {
+      const condition = selectedConditions.length > 0 ? selectedConditions[0] : undefined;
+      const result = await apiService.searchOrganism({
+        query: query.trim(),
+        condition
+      });
+      
+      setSearchResult(result);
+    } catch (error) {
+      console.error("AI Search error:", error);
+      setError(error instanceof Error ? error.message : "Failed to perform AI search");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    loadData();
+    if (activeTab === "ai-search") {
+      performAISearch();
+    } else {
+      loadData();
+    }
   };
 
   // Available filter conditions from mock data
@@ -92,10 +147,28 @@ export function SearchDashboard({ searchQuery = "" }: SearchDashboardProps) {
           <h1 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             Space Biology Research Dashboard
           </h1>
-          <p className="text-lg text-gray-300 max-w-3xl">
+          <p className="text-lg text-gray-300 max-w-3xl mb-4">
             Search and explore NASA's space biology experiments. Find organisms,
             papers, and insights from decades of research.
           </p>
+          
+          {/* API Status */}
+          {apiStatus && (
+            <div className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium ${
+              apiStatus.connected 
+                ? 'bg-green-500/20 text-green-300 border border-green-400/30' 
+                : 'bg-red-500/20 text-red-300 border border-red-400/30'
+            }`}>
+              {apiStatus.connected ? (
+                <CheckCircle className="w-4 h-4 mr-2" />
+              ) : (
+                <AlertCircle className="w-4 h-4 mr-2" />
+              )}
+              <span>
+                {apiStatus.message}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Search Section */}
@@ -114,9 +187,19 @@ export function SearchDashboard({ searchQuery = "" }: SearchDashboardProps) {
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
               <button
                 type="submit"
-                className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg hover:shadow-cyan-500/50"
+                disabled={loading || !apiStatus?.connected}
+                className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg hover:shadow-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
               >
-                Search Experiments
+                {loading ? (
+                  <>
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    Searching...
+                  </>
+                ) : activeTab === "ai-search" ? (
+                  "AI Search"
+                ) : (
+                  "Search Experiments"
+                )}
               </button>
               <button
                 type="button"
@@ -217,6 +300,16 @@ export function SearchDashboard({ searchQuery = "" }: SearchDashboardProps) {
         {/* Tabs */}
         <div className="flex space-x-1 mb-8">
           <button
+            onClick={() => setActiveTab("ai-search")}
+            className={`px-6 py-3 font-semibold rounded-lg transition-all ${
+              activeTab === "ai-search"
+                ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white"
+                : "bg-white/10 text-gray-300 hover:bg-white/20"
+            }`}
+          >
+            🤖 AI Search
+          </button>
+          <button
             onClick={() => setActiveTab("organisms")}
             className={`px-6 py-3 font-semibold rounded-lg transition-all ${
               activeTab === "organisms"
@@ -242,13 +335,59 @@ export function SearchDashboard({ searchQuery = "" }: SearchDashboardProps) {
         <div className="pb-12">
           {loading ? (
             <div className="text-center py-12">
-              <div className="w-12 h-12 text-cyan-400 animate-spin mx-auto mb-4">
-                ⟳
-              </div>
-              <p className="text-gray-300">Loading...</p>
+              <Loader2 className="w-12 h-12 text-cyan-400 animate-spin mx-auto mb-4" />
+              <p className="text-gray-300">Searching...</p>
             </div>
           ) : (
             <>
+              {/* Error Message */}
+              {error && (
+                <div className="mb-6 bg-red-500/20 border border-red-400/30 rounded-xl p-4">
+                  <div className="flex items-center">
+                    <AlertCircle className="w-5 h-5 text-red-400 mr-2" />
+                    <span className="text-red-300">{error}</span>
+                  </div>
+                </div>
+              )}
+
+              {/* AI Search Results */}
+              {activeTab === "ai-search" && (
+                <div>
+                  {searchResult ? (
+                    <SearchResultComponent result={searchResult} />
+                  ) : (
+                    <div className="text-center py-12">
+                      <div className="w-24 h-24 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <Search className="w-12 h-12 text-cyan-400" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-white mb-2">
+                        AI-Powered Research Search
+                      </h3>
+                      <p className="text-gray-400 mb-6 max-w-md mx-auto">
+                        Enter a query about organisms, conditions, or research topics to get intelligent insights from NASA's space biology database.
+                      </p>
+                      <div className="flex flex-wrap justify-center gap-2">
+                        {[
+                          "E. coli microgravity",
+                          "Arabidopsis radiation resistance", 
+                          "Yeast space environment",
+                          "Bacterial biofilm formation",
+                          "Plant growth in space"
+                        ].map((example) => (
+                          <button
+                            key={example}
+                            onClick={() => setQuery(example)}
+                            className="px-3 py-1 bg-white/10 border border-white/20 rounded-full text-sm text-gray-300 hover:border-cyan-400 hover:text-cyan-400 transition-colors"
+                          >
+                            {example}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {activeTab === "organisms" && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {organisms.map((organism) => (

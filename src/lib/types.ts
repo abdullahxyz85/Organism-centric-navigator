@@ -53,3 +53,24 @@ export interface ExperimentWithDetails {
   key_results: string | null;
   papers: Paper;
 }
+
+// API Response Types
+export interface ScientificDetails {
+  classification: string;
+  response_mechanisms: string[];
+  experimental_findings: string;
+  applications: string;
+}
+
+export interface SearchResult {
+  organism_name: string;
+  condition?: string;
+  description: string;
+  scientific_details: ScientificDetails;
+  relevant_chunks: string[];
+}
+
+export interface SearchRequest {
+  query: string;
+  condition?: string;
+}
