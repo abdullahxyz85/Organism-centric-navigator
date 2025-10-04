@@ -1,23 +1,11 @@
-import { useState, useEffect } from 'react';
-import { OrganismCard } from '../components/OrganismCard';
-import { PaperCard } from '../components/PaperCard';
-import { FilterPanel } from '../components/FilterPanel';
-import { PaperDetailModal } from '../components/PaperDetailModal';
-import { supabase } from '../lib/supabase';
-import { Database } from '../lib/database.types';
-import { Loader2, AlertCircle } from 'lucide-react';
-
-type Organism = Database['public']['Tables']['organisms']['Row'];
-type Paper = Database['public']['Tables']['papers']['Row'];
-
-interface ExperimentWithDetails {
-  id: string;
-  paper_id: string;
-  organism_id: string;
-  conditions: string[];
-  key_results: string | null;
-  papers: Paper;
-}
+import { useState, useEffect } from "react";
+import { OrganismCard } from "../components/OrganismCard";
+import { PaperCard } from "../components/PaperCard";
+import { FilterPanel } from "../components/FilterPanel";
+import { PaperDetailModal } from "../components/PaperDetailModal";
+import { mockAPI } from "../lib/mockData";
+import { Organism, Paper, ExperimentWithDetails } from "../lib/types";
+import { Loader2, AlertCircle } from "lucide-react";
 
 interface ExplorePageProps {
   searchQuery?: string;
@@ -25,7 +13,9 @@ interface ExplorePageProps {
 
 export function ExplorePage({ searchQuery }: ExplorePageProps) {
   const [organisms, setOrganisms] = useState<Organism[]>([]);
-  const [selectedOrganism, setSelectedOrganism] = useState<Organism | null>(null);
+  const [selectedOrganism, setSelectedOrganism] = useState<Organism | null>(
+    null
+  );
   const [experiments, setExperiments] = useState<ExperimentWithDetails[]>([]);
   const [selectedPaper, setSelectedPaper] = useState<{
     paper: Paper;
@@ -51,16 +41,9 @@ export function ExplorePage({ searchQuery }: ExplorePageProps) {
     setError(null);
 
     try {
-      let query = supabase
-        .from('organisms')
-        .select('*')
-        .order('experiment_count', { ascending: false });
-
-      if (searchQuery) {
-        query = query.or(`name.ilike.%${searchQuery}%,common_name.ilike.%${searchQuery}%,scientific_name.ilike.%${searchQuery}%`);
-      }
-
-      const { data, error: fetchError } = await query;
+      const { data, error: fetchError } = await mockAPI.getOrganisms(
+        searchQuery
+      );
 
       if (fetchError) throw fetchError;
       setOrganisms(data || []);
@@ -69,7 +52,7 @@ export function ExplorePage({ searchQuery }: ExplorePageProps) {
         setSelectedOrganism(data[0]);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load organisms');
+      setError(err instanceof Error ? err.message : "Failed to load organisms");
     } finally {
       setLoading(false);
     }
@@ -80,21 +63,17 @@ export function ExplorePage({ searchQuery }: ExplorePageProps) {
 
     setLoading(true);
     try {
-      let query = supabase
-        .from('experiments')
-        .select('*, papers(*)')
-        .eq('organism_id', selectedOrganism.id);
-
-      if (selectedConditions.length > 0) {
-        query = query.overlaps('conditions', selectedConditions);
-      }
-
-      const { data, error: fetchError } = await query;
+      const { data, error: fetchError } = await mockAPI.getExperiments(
+        selectedOrganism.id,
+        selectedConditions
+      );
 
       if (fetchError) throw fetchError;
-      setExperiments(data as ExperimentWithDetails[] || []);
+      setExperiments(data || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load experiments');
+      setError(
+        err instanceof Error ? err.message : "Failed to load experiments"
+      );
     } finally {
       setLoading(false);
     }
@@ -135,7 +114,9 @@ export function ExplorePage({ searchQuery }: ExplorePageProps) {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center max-w-md">
           <AlertCircle className="w-12 h-12 text-red-400 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-white mb-2">Error Loading Data</h2>
+          <h2 className="text-xl font-semibold text-white mb-2">
+            Error Loading Data
+          </h2>
           <p className="text-gray-300 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
@@ -154,14 +135,16 @@ export function ExplorePage({ searchQuery }: ExplorePageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
             <AlertCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-semibold text-white mb-2">No Organisms Found</h2>
+            <h2 className="text-2xl font-semibold text-white mb-2">
+              No Organisms Found
+            </h2>
             <p className="text-gray-300 mb-6">
               {searchQuery
                 ? `No organisms found matching "${searchQuery}". Try a different search term.`
-                : 'No organisms available yet. Sample data will be added soon.'}
+                : "No organisms available yet. Sample data will be added soon."}
             </p>
             <button
-              onClick={() => window.history.pushState({}, '', '/')}
+              onClick={() => window.history.pushState({}, "", "/")}
               className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:from-cyan-400 hover:to-blue-500 transition-all"
             >
               Back to Home
@@ -179,10 +162,13 @@ export function ExplorePage({ searchQuery }: ExplorePageProps) {
           <div>
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-white mb-2">
-                {searchQuery ? `Search Results for "${searchQuery}"` : 'All Organisms'}
+                {searchQuery
+                  ? `Search Results for "${searchQuery}"`
+                  : "All Organisms"}
               </h1>
               <p className="text-gray-300">
-                {organisms.length} organism{organisms.length !== 1 ? 's' : ''} found
+                {organisms.length} organism{organisms.length !== 1 ? "s" : ""}{" "}
+                found
               </p>
             </div>
 
@@ -215,14 +201,17 @@ export function ExplorePage({ searchQuery }: ExplorePageProps) {
                 </p>
               )}
               {selectedOrganism.description && (
-                <p className="text-gray-300 mb-4">{selectedOrganism.description}</p>
+                <p className="text-gray-300 mb-4">
+                  {selectedOrganism.description}
+                </p>
               )}
               <div className="flex items-center space-x-4">
                 <span className="px-4 py-2 bg-cyan-500/20 text-cyan-300 rounded-lg font-medium border border-cyan-400/30">
-                  {selectedOrganism.category.replace('_', ' ')}
+                  {selectedOrganism.category.replace("_", " ")}
                 </span>
                 <span className="text-gray-300">
-                  {experiments.length} experiment{experiments.length !== 1 ? 's' : ''}
+                  {experiments.length} experiment
+                  {experiments.length !== 1 ? "s" : ""}
                 </span>
               </div>
             </div>
@@ -249,8 +238,8 @@ export function ExplorePage({ searchQuery }: ExplorePageProps) {
                     </h3>
                     <p className="text-gray-300">
                       {selectedConditions.length > 0
-                        ? 'Try removing some filters to see more results.'
-                        : 'No experiments available for this organism yet.'}
+                        ? "Try removing some filters to see more results."
+                        : "No experiments available for this organism yet."}
                     </p>
                   </div>
                 ) : (

@@ -1,13 +1,16 @@
-import { X } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { mockAPI } from "../lib/mockData";
 
 interface FilterPanelProps {
   selectedConditions: string[];
   onConditionsChange: (conditions: string[]) => void;
 }
 
-export function FilterPanel({ selectedConditions, onConditionsChange }: FilterPanelProps) {
+export function FilterPanel({
+  selectedConditions,
+  onConditionsChange,
+}: FilterPanelProps) {
   const [availableConditions, setAvailableConditions] = useState<string[]>([]);
 
   useEffect(() => {
@@ -15,19 +18,16 @@ export function FilterPanel({ selectedConditions, onConditionsChange }: FilterPa
   }, []);
 
   const loadConditions = async () => {
-    const { data } = await supabase
-      .from('conditions')
-      .select('name')
-      .order('name');
+    const { data } = await mockAPI.getConditions();
 
     if (data) {
-      setAvailableConditions(data.map(c => c.name));
+      setAvailableConditions(data.map((c) => c.name));
     }
   };
 
   const toggleCondition = (condition: string) => {
     if (selectedConditions.includes(condition)) {
-      onConditionsChange(selectedConditions.filter(c => c !== condition));
+      onConditionsChange(selectedConditions.filter((c) => c !== condition));
     } else {
       onConditionsChange([...selectedConditions, condition]);
     }
@@ -59,8 +59,8 @@ export function FilterPanel({ selectedConditions, onConditionsChange }: FilterPa
                 onClick={() => toggleCondition(condition)}
                 className={`w-full px-4 py-2 rounded-lg text-left text-sm font-medium transition-all ${
                   isSelected
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white'
-                    : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white"
+                    : "bg-white/5 text-gray-300 hover:bg-white/10"
                 }`}
               >
                 <div className="flex items-center justify-between">

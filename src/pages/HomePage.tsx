@@ -15,7 +15,7 @@ interface HomePageProps {
   onSearch: (query: string) => void;
 }
 
-export function HomePage({ onSearch }: HomePageProps) {
+export function HomePage({ onSearch: _ }: HomePageProps) {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}

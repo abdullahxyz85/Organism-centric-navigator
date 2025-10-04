@@ -120,7 +120,7 @@ function App() {
                       <div className="flex items-center">
                         <div className="w-3 h-3 bg-green-400 rounded-full mr-3"></div>
                         <span className="text-gray-300">
-                          Supabase for data management
+                          Modern data architecture
                         </span>
                       </div>
                       <div className="flex items-center">

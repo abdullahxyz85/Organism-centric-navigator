@@ -1,7 +1,5 @@
-import { Database } from '../lib/database.types';
-import { FileText, Leaf } from 'lucide-react';
-
-type Organism = Database['public']['Tables']['organisms']['Row'];
+import { Organism } from "../lib/types";
+import { FileText, Leaf } from "lucide-react";
 
 interface OrganismCardProps {
   organism: Organism;
@@ -16,7 +14,8 @@ const categoryIcons = {
 };
 
 export function OrganismCard({ organism, onClick }: OrganismCardProps) {
-  const Icon = categoryIcons[organism.category as keyof typeof categoryIcons] || FileText;
+  const Icon =
+    categoryIcons[organism.category as keyof typeof categoryIcons] || FileText;
 
   return (
     <button
@@ -41,14 +40,18 @@ export function OrganismCard({ organism, onClick }: OrganismCardProps) {
             {organism.name}
           </h3>
           {organism.scientific_name && (
-            <p className="text-sm text-gray-400 italic mb-2">{organism.scientific_name}</p>
+            <p className="text-sm text-gray-400 italic mb-2">
+              {organism.scientific_name}
+            </p>
           )}
           {organism.description && (
-            <p className="text-sm text-gray-300 line-clamp-2">{organism.description}</p>
+            <p className="text-sm text-gray-300 line-clamp-2">
+              {organism.description}
+            </p>
           )}
           <div className="mt-3 flex items-center space-x-4 text-sm">
             <span className="px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full font-medium border border-cyan-400/30">
-              {organism.category.replace('_', ' ')}
+              {organism.category.replace("_", " ")}
             </span>
             <span className="text-gray-400">
               {organism.experiment_count} experiments

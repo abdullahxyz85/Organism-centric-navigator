@@ -1,7 +1,5 @@
-import { Database } from '../lib/database.types';
-import { Calendar, Users, ExternalLink, FileText } from 'lucide-react';
-
-type Paper = Database['public']['Tables']['papers']['Row'];
+import { Paper } from "../lib/types";
+import { Calendar, Users, ExternalLink, FileText } from "lucide-react";
 
 interface PaperCardProps {
   paper: Paper;
@@ -11,11 +9,11 @@ interface PaperCardProps {
 
 export function PaperCard({ paper, conditions = [], onClick }: PaperCardProps) {
   const formatDate = (date: string | null) => {
-    if (!date) return 'Date unavailable';
-    return new Date(date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    if (!date) return "Date unavailable";
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -36,7 +34,8 @@ export function PaperCard({ paper, conditions = [], onClick }: PaperCardProps) {
       {paper.summary && (
         <div className="mb-4 p-3 bg-cyan-500/10 rounded-lg border border-cyan-400/30">
           <p className="text-sm text-gray-300 line-clamp-3">
-            <span className="font-semibold text-cyan-400">AI Summary:</span> {paper.summary}
+            <span className="font-semibold text-cyan-400">AI Summary:</span>{" "}
+            {paper.summary}
           </p>
         </div>
       )}
@@ -45,7 +44,10 @@ export function PaperCard({ paper, conditions = [], onClick }: PaperCardProps) {
         {paper.authors && paper.authors.length > 0 && (
           <div className="flex items-center text-sm text-gray-400">
             <Users className="w-4 h-4 mr-2 flex-shrink-0" />
-            <span className="truncate">{paper.authors.slice(0, 3).join(', ')}{paper.authors.length > 3 ? ' et al.' : ''}</span>
+            <span className="truncate">
+              {paper.authors.slice(0, 3).join(", ")}
+              {paper.authors.length > 3 ? " et al." : ""}
+            </span>
           </div>
         )}
 
@@ -71,7 +73,9 @@ export function PaperCard({ paper, conditions = [], onClick }: PaperCardProps) {
 
       {paper.key_findings && paper.key_findings.length > 0 && (
         <div className="mb-4">
-          <p className="text-xs font-semibold text-cyan-400 mb-1">Key Findings:</p>
+          <p className="text-xs font-semibold text-cyan-400 mb-1">
+            Key Findings:
+          </p>
           <ul className="text-sm text-gray-300 space-y-1">
             {paper.key_findings.slice(0, 2).map((finding, idx) => (
               <li key={idx} className="flex items-start">
