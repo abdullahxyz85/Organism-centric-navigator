@@ -232,10 +232,12 @@ export function HomePage({ onSearch: _ }: HomePageProps) {
               {/* Team Member 1 */}
               <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
                 <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
-                  {/* Placeholder for team member photo */}
-                  <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">TM1</span>
-                  </div>
+                  {/* Team member photo */}
+                  <img
+                    src="/team/Azeem.webp"
+                    alt="Muhammad Azeem Azam"
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
                   Muhammad Azeem Azam
@@ -251,10 +253,12 @@ export function HomePage({ onSearch: _ }: HomePageProps) {
               {/* Team Member 2 */}
               <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
                 <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
-                  {/* Placeholder for team member photo */}
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">TM2</span>
-                  </div>
+                  {/* Team member photo */}
+                  <img
+                    src="/team/khabab.webp"
+                    alt="Khabab Akhtar"
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
                   Khabab Akhtar
@@ -270,10 +274,12 @@ export function HomePage({ onSearch: _ }: HomePageProps) {
               {/* Team Member 3 */}
               <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
                 <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
-                  {/* Placeholder for team member photo */}
-                  <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-cyan-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">TM3</span>
-                  </div>
+                  {/* Team member photo */}
+                  <img
+                    src="/team/abdullah (2).png"
+                    alt="Abdullah Jameel"
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
                   Abdullah Jameel
@@ -293,10 +299,12 @@ export function HomePage({ onSearch: _ }: HomePageProps) {
               {/* Team Member 4 */}
               <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
                 <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
-                  {/* Placeholder for team member photo */}
-                  <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">TM4</span>
-                  </div>
+                  {/* Team member photo */}
+                  <img
+                    src="/team/fouzia.jpg"
+                    alt="Fouzia Akbar"
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
                   Fouzia Akbar
