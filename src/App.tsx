@@ -59,15 +59,12 @@ function App() {
               </h1>
               <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-lg p-8 lg:p-12 space-y-8">
                 <div className="text-center mb-12">
-                  <div className="flex items-center justify-center space-x-4 mb-6">
+                  <div className="flex items-center justify-center mb-6">
                     <img
-                      src="/nasa-logo-web-rgb.webp"
+                      src="/nasa-logo-web-rgb.png"
                       alt="NASA Logo"
-                      className="w-16 h-16 object-contain"
+                      className="w-20 h-20 object-contain"
                     />
-                    <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
-                      <span className="text-2xl">🚀</span>
-                    </div>
                   </div>
                   <h2 className="text-2xl font-bold text-white mb-2">
                     NASA Space Apps Challenge 2025
