@@ -341,10 +341,12 @@ export function HomePage({ onSearch: _ }: HomePageProps) {
               {/* Team Member 6 */}
               <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
                 <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
-                  {/* Placeholder for team member photo */}
-                  <div className="w-20 h-20 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">TM6</span>
-                  </div>
+                  {/* Team member photo */}
+                  <img
+                    src="/team/ahmad.webp"
+                    alt="Ahmad Raza"
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
                   Ahmad Raza
