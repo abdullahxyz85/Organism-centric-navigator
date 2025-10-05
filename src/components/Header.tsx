@@ -50,12 +50,6 @@ export function Header() {
               Dashboard
             </Link>
             <Link
-              href="/explore"
-              className="text-gray-300 hover:text-cyan-400 transition-colors font-medium"
-            >
-              Explore
-            </Link>
-            <Link
               href="/organisms"
               className="text-gray-300 hover:text-cyan-400 transition-colors font-medium"
             >
@@ -99,13 +93,6 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Dashboard
-              </Link>
-              <Link
-                href="/explore"
-                className="text-gray-300 hover:text-cyan-400 transition-colors font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Explore
               </Link>
               <Link
                 href="/organisms"

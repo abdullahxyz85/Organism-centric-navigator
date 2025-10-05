@@ -133,29 +133,6 @@ export function HomePage({ onSearch: _ }: HomePageProps) {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-12 lg:py-16 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-3xl p-8 lg:p-16 border border-cyan-400/30">
-            <Rocket className="w-16 h-16 text-cyan-400 mx-auto mb-6" />
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              Ready to Explore Space Biology?
-            </h2>
-            <p className="text-xl lg:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
-              Start your journey into NASA's space biology research. Search for
-              an organism or browse our comprehensive collection.
-            </p>
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg hover:shadow-cyan-500/50 transform hover:scale-105 text-lg"
-            >
-              Start Exploring Now
-              <ArrowRight className="ml-3 w-6 h-6" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* About Section */}
       <section className="py-12 lg:py-16 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -231,6 +208,180 @@ export function HomePage({ onSearch: _ }: HomePageProps) {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-12 lg:py-16 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+              Meet Our Team
+            </h2>
+            <p className="text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              The brilliant minds behind Space Biology Navigator - Team Astra
+              Innovators
+            </p>
+          </div>
+
+          {/* Team Cards Grid */}
+          <div className="space-y-8">
+            {/* First Row - 3 Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
+              {/* Team Member 1 */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
+                  {/* Team member photo */}
+                  <img
+                    src="/team/Azeem.webp"
+                    alt="Muhammad Azeem Azam"
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  Muhammad Azeem Azam
+                </h3>
+                <p className="text-cyan-400 text-sm font-medium mb-2">
+                  AI Engineer
+                </p>
+                <p className="text-gray-400 text-sm">
+                  Great backend developer, contributed in backend part
+                </p>
+              </div>
+
+              {/* Team Member 2 */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
+                  {/* Team member photo */}
+                  <img
+                    src="/team/khabab.webp"
+                    alt="Khabab Akhtar"
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  Khabab Akhtar
+                </h3>
+                <p className="text-cyan-400 text-sm font-medium mb-2">
+                  Electronic AI Engineer
+                </p>
+                <p className="text-gray-400 text-sm">
+                  His expertise help us in creating a good UI
+                </p>
+              </div>
+
+              {/* Team Member 3 */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
+                  {/* Team member photo */}
+                  <img
+                    src="/team/abdullah (2).png"
+                    alt="Abdullah Jameel"
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  Abdullah Jameel
+                </h3>
+                <p className="text-cyan-400 text-sm font-medium mb-2">
+                  Software Engineer
+                </p>
+                <p className="text-gray-400 text-sm">
+                  Abdullah contributed in frontend part and created dynamic
+                  slides
+                </p>
+              </div>
+            </div>
+
+            {/* Second Row - 3 Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
+              {/* Team Member 4 */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
+                  {/* Team member photo */}
+                  <img
+                    src="/team/fouzia.jpg"
+                    alt="Fouzia Akbar"
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  Fouzia Akbar
+                </h3>
+                <p className="text-cyan-400 text-sm font-medium mb-2">
+                  Software Engineer
+                </p>
+                <p className="text-gray-400 text-sm">
+                  His experticise help us in frontend as well as backend part,
+                  and her communication skill with teamates.
+                </p>
+              </div>
+
+              {/* Team Member 5 */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
+                  {/* Placeholder for team member photo */}
+                  <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-xl">TM5</span>
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  Nishitha Varsha
+                </h3>
+                <p className="text-cyan-400 text-sm font-medium mb-2">
+                  Software Engineer
+                </p>
+                <p className="text-gray-400 text-sm">
+                  Nishita help us to stay motivated like how the things we need
+                  to manage, she help us how we can contributed on tasks
+                </p>
+              </div>
+
+              {/* Team Member 6 */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
+                  {/* Team member photo */}
+                  <img
+                    src="/team/ahmad.webp"
+                    alt="Ahmad Raza"
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  Ahmad Raza
+                </h3>
+                <p className="text-cyan-400 text-sm font-medium mb-2">
+                  Software Engineer
+                </p>
+                <p className="text-gray-400 text-sm">
+                  Contributed in slides and Video Demo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-12 lg:py-16 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-3xl p-8 lg:p-16 border border-cyan-400/30">
+            <Rocket className="w-16 h-16 text-cyan-400 mx-auto mb-6" />
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+              Ready to Explore Space Biology?
+            </h2>
+            <p className="text-xl lg:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
+              Start your journey into NASA's space biology research. Search for
+              an organism or browse our comprehensive collection.
+            </p>
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg hover:shadow-cyan-500/50 transform hover:scale-105 text-lg"
+            >
+              Start Exploring Now
+              <ArrowRight className="ml-3 w-6 h-6" />
+            </Link>
           </div>
         </div>
       </section>
