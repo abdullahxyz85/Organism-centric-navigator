@@ -1,6 +1,6 @@
 // API service for connecting to FastAPI backend
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://nasa-inovators-8ccfb7f274d0.herokuapp.com';
 
 export interface SearchRequest {
   query: string;
