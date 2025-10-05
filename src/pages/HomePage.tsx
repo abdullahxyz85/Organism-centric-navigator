@@ -294,8 +294,8 @@ export function HomePage({ onSearch: _ }: HomePageProps) {
               </div>
             </div>
 
-            {/* Second Row - 2 Cards Centered */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            {/* Second Row - 3 Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
               {/* Team Member 4 */}
               <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
                 <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
@@ -335,6 +335,25 @@ export function HomePage({ onSearch: _ }: HomePageProps) {
                 <p className="text-gray-400 text-sm">
                   Nishita help us to stay motivated like how the things we need
                   to manage, she help us how we can contributed on tasks
+                </p>
+              </div>
+
+              {/* Team Member 6 */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-400/30 flex items-center justify-center overflow-hidden">
+                  {/* Placeholder for team member photo */}
+                  <div className="w-20 h-20 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-xl">TM6</span>
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  Ahmad Raza
+                </h3>
+                <p className="text-cyan-400 text-sm font-medium mb-2">
+                  Software Engineer
+                </p>
+                <p className="text-gray-400 text-sm">
+                  Contributed in slides and Video Demo.
                 </p>
               </div>
             </div>
